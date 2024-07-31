@@ -1,54 +1,55 @@
-<div class=" w-full h-screen flex flex-col items-center justify-start">
-    <div>
-        <img src="../../../assets/logo.png" alt="" class="h-[10rem] mt-[-3rem]">
+<div class="w-full h-screen flex flex-col items-center justify-start relative">
+  <!-- Logo Section -->
+  <div class="w-full flex justify-center mt-[-3rem] mb-4">
+    <img src="../../../assets/logo.png" alt="Logo" class="h-[10rem] hidden md:block">
+    <img src="../../../../public/favicon.png" alt="Logo" class="h-[10rem] md:hidden">
+  </div>
+
+  <!-- Navigation Menu -->
+  <div class="w-full h-screen flex flex-col justify-between">
+    <div class="flex flex-col justify-start items-center w-full flex-grow">
+      <ul class="w-full flex flex-col text-gray-600">
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full min-w-8 text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/dashboard']">
+          <span class="material-symbols-outlined md:mr-3">dashboard</span>
+          <span class="hidden md:block">Dashboard</span>
+          
+        </li>
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/dashboard/transactions']">
+          <span class="material-symbols-outlined md:mr-3">add_card</span>
+          <span class="hidden md:block">Transactions</span>
+         
+        </li>
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/dashboard/accounts']">
+          <span class="material-symbols-outlined md:mr-3">account_balance_wallet</span>
+          <span class="hidden md:block">Account</span>
+         
+        </li>
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/dashboard/profile']">
+          <span class="material-symbols-outlined md:mr-3">person</span>
+          <span class="hidden md:block">Profile</span>
+         
+        </li>
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/dashboard/help']">
+          <span class="material-symbols-outlined md:mr-3">help</span>
+          <span class="hidden md:block">Help</span>
+         
+        </li>
+      </ul>
     </div>
-    <div class="w-full h-screen flex flex-col justify-between">
-        <!-- Navigation Menu -->
-        <div class="flex w-full flex-col justify-start items-center ">
-          <ul class="w-full flex flex-col text-gray-600">
-            <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                router-link="/dashboard">
-              <span class="material-symbols-outlined mr-3">dashboard</span>
-              Dashboard
-            </li>
-            <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                router-link="/transactions">
-              <span class="material-symbols-outlined mr-3">add_card</span>
-              Transactions
-            </li>
-            <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                router-link="/accounts">
-              <span class="material-symbols-outlined mr-3">account_balance_wallet</span>
-              Account
-            </li>
-            <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                router-link="/dashboard">
-              <span class="material-symbols-outlined mr-3">person</span>
-              Profile
-            </li>
-            <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                RouterLink="/dashboard/help">
-              <span class="material-symbols-outlined mr-3">help</span>
-              Help
-            </li>
-          </ul>
-        </div>
-      
-        <!-- Content on the other end -->
-        <div class="flex items-end justify-center mb-2 ">
-            <ul class="w-full flex flex-col text-gray-600">
-                <li class="hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 active:text-white active:bg-blue-400 active:font-bold"
-                    router-link="/dashboard">
-                  <span class="material-symbols-outlined mr-3">logout</span>
-                  Logout
-                </li>
-                <li class="  cursor-pointer w-full text-center h-16 flex items-center justify-start pl-8 border-t-2"
-                >
-           <img src="defalut" alt="">
-             Kartik Sapkal
-            </li>
-            </ul>
-        </div>
-      </div>
-      
+
+    <!-- Bottom Section -->
+    <div class="flex items-end justify-center mb-2">
+      <ul class="w-full flex flex-col text-gray-600">
+        <li class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8 active:text-white active:bg-blue-400 active:font-bold" [routerLink]="['/logout']">
+          <span class="material-symbols-outlined md:mr-3">logout</span>
+          <span class="hidden md:block ">Logout</span>
+          <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-max p-2 text-sm text-white bg-gray-800 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">Logout</span>
+        </li>
+        <li class="cursor-pointer w-full text-center h-16 md:pl-8 border-t-2 flex items-center justify-center">
+          <img src="path/to/your/image.jpg" alt="Profile" class="w-8 h-8 rounded-full mr-2">
+          <span class="hidden md:block">Kartik Sapkal</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
