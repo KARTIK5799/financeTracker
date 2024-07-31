@@ -29,7 +29,7 @@ export const routes: Routes = [
             {
                 path: '',
                 component: DashboardContentComponent,
-                title: "Dashboard | Accounts",
+                title: "SpendSmart | Dashboard",
                 pathMatch:'full'
                 // canActivate: [AuthGuard] // Add AuthGuard to protect this route
             },
