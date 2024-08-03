@@ -26,13 +26,6 @@
         </li>
         <li 
           class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8"
-          [routerLink]="['/dashboard/accounts']"
-          routerLinkActive="bg-blue-400 text-white font-bold">
-          <span class="material-symbols-outlined md:mr-3">account_balance_wallet</span>
-          <span class="hidden md:block">Account</span>
-        </li>
-        <li 
-          class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8"
           [routerLink]="['/dashboard/profile']"
           routerLinkActive="bg-blue-400 text-white font-bold">
           <span class="material-symbols-outlined md:mr-3">person</span>
@@ -53,15 +46,14 @@
       <ul class="w-full flex flex-col text-gray-600">
         <li 
           class="relative group hover:bg-blue-400 hover:text-white hover:font-bold cursor-pointer w-full text-center h-16 flex items-center justify-center md:justify-start md:pl-8"
-          [routerLink]="['/login']"
-          routerLinkActive="bg-blue-400 text-white font-bold">
+          (click)="logout()">
           <span class="material-symbols-outlined md:mr-3">logout</span>
           <span class="hidden md:block">Logout</span>
           <span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-max p-2 text-sm text-white bg-gray-800 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">Logout</span>
         </li>
         <li class="cursor-pointer w-full text-center h-16 md:pl-8 border-t-2 flex items-center justify-center">
           <img src="path/to/your/image.jpg" alt="Profile" class="w-8 h-8 rounded-full mr-2">
-          <span class="hidden md:block">Kartik Sapkal</span>
+          <span class="hidden md:block">{{userName}}</span>
         </li>
       </ul>
     </div>

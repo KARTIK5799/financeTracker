@@ -34,34 +34,30 @@ export class DashboardContentComponent implements OnInit {
   }
 
   calculateTotals() {
-    let balance = 0;
     let income = 0;
     let spendings = 0;
 
     this.storedData.forEach(user => {
-      user.accounts.forEach(account => {
-        balance += account.balance;
-        account.transactions.forEach(transaction => {
-          if (transaction.type === 'income') {
-            income += transaction.amount;
-          } else {
-            spendings += transaction.amount;
-          }
-        });
+      user.transactions.forEach(transaction => {
+        if (transaction.type === 'income') {
+          income += transaction.amount;
+        } else if (transaction.type === 'expense') {
+          spendings += transaction.amount;
+        }
       });
     });
 
-    this.totalBalance = balance;
     this.totalIncome = income;
     this.totalSpendings = spendings;
+    this.totalBalance = income - spendings; 
   }
 
   prepareTransactionHistory() {
     this.transactionHistory = this.storedData.flatMap(user =>
-      user.accounts.flatMap(account => account.transactions)
+      user.transactions
     ).map(transaction => ({
       ...transaction,
-      date: new Date(transaction.date) 
+      date: new Date(transaction.date)
     }))
     .sort((a, b) => b.date.getTime() - a.date.getTime());
   }
