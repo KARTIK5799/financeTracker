@@ -1,89 +1,44 @@
 <div class="h-screen w-screen flex">
-  <div
-    class="w-[40%] bg-blue-50 h-full hidden md:flex items-center flex-col justify- gap-1"
-  >
+  <div class="w-[40%] bg-blue-50 h-full hidden md:flex items-center flex-col justify- gap-1">
     <div class="h-10">
-      <img
-        src="../../../assets/logo.png"
-        alt="Company Logo"
-        class="mx-auto mb-6 w-32 h-32"
-      />
+      <img src="../../../assets/logo.png" alt="Company Logo" class="mx-auto mb-6 w-32 h-32" />
     </div>
     <div class="mt-10">
       <img src="src/assets/illustration/loginimg.jpg" alt="Login Image" />
     </div>
     <div class="text-center px-5">
-      <h1 class="text-4xl font-extrabold text-gray-800 mb-4">
-        Save. Spend. Enjoy.
-      </h1>
-      <h2 class="text-2xl font-semibold text-gray-600 mb-6">
-        We’ll help you track your finances effortlessly.
-      </h2>
-      <p class="text-sm text-gray-400 mb-8">
-        Managing your budget has never been easier. Our Budget Tracker empowers
-        you to save more, spend wisely, and enjoy your life.
-      </p>
-      <a
-        href="/login"
-        class="bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300"
-      >
-        Start Tracking Now
-      </a>
+      <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Save. Spend. Enjoy.</h1>
+      <h2 class="text-2xl font-semibold text-gray-600 mb-6">We’ll help you track your finances effortlessly.</h2>
+      <p class="text-sm text-gray-400 mb-8">Managing your budget has never been easier. Our Budget Tracker empowers you to save more, spend wisely, and enjoy your life.</p>
+      <a href="/login" class="bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300">Start Tracking Now</a>
     </div>
   </div>
 
   <div class="h-screen w-screen md:w-[60%] flex flex-col items-center md:justify-center">
     <div class="mt-0 md:hidden h-32">
-        <img src="assets/logo.png" alt="Login Image" class="w-[10rem]" />
-      </div>
+      <img src="assets/logo.png" alt="Login Image" class="w-[10rem]" />
+    </div>
     <div class="w-[80%] md:w-[40%] h-[50%] gap-10 flex flex-col">
-        
       <div class="w-full flex flex-col items-start text-left gap-5">
-        <h1 class="text-4xl font-bold">{{isLoginVisible?"Welcome Back,":"Welcome,"}}</h1>
-        <p class="text-gray-400">
-            Start managing your finances quickly and efficiently. Gain control and make informed decisions effortlessly.
-          </p>
-          
-          
+        <h1 class="text-4xl font-bold">{{isLoginVisible ? 'Welcome Back,' : 'Welcome,'}}</h1>
+        <p class="text-gray-400">Start managing your finances quickly and efficiently. Gain control and make informed decisions effortlessly.</p>
       </div>
       <div class="w-full">
         <!-- login form -->
-        <form action="" *ngIf="isLoginVisible" class="flex flex-col gap-10">
-          <div
-            class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2"
-          >
-            <div
-              class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center"
-            >
-              <span class="material-symbols-outlined"> mail </span>
+        <form *ngIf="isLoginVisible" (ngSubmit)="onLogin()" class="flex flex-col gap-10">
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">mail</span>
             </div>
-            <input
-              type="text"
-              class="h-full w-full bg-transparent"
-              placeholder="youremail@gmail.com"
-            />
+            <input type="text" class="h-full w-full bg-transparent" placeholder="youremail@gmail.com" name="email" [(ngModel)]="loginObj.email" />
           </div>
-          <div
-            class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2"
-          >
-            <div
-              class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center"
-            >
-     
-                <span class="material-symbols-outlined" > lock </span>
-     
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">lock</span>
             </div>
-            <input
-              type="{{isPasswordVisible?'text':'password'}}"
-              class="h-full w-full bg-transparent"
-              placeholder="YourPassword@123"
-            />
-            <div
-              class="w-10 h-full rounded flex justify-center cursor-pointer items-center"
-              (click)="togglePasswordVisibility()"
-              >
-              <span class="material-symbols-outlined">{{isPasswordVisible? 'visibility_off' :  'visibility'}}</span>
-              
+            <input type="{{isPasswordVisible ? 'text' : 'password'}}" class="h-full w-full bg-transparent" placeholder="YourPassword@123" name="password" [(ngModel)]="loginObj.password" />
+            <div class="w-10 h-full rounded flex justify-center cursor-pointer items-center" (click)="togglePasswordVisibility()">
+              <span class="material-symbols-outlined">{{isPasswordVisible ? 'visibility_off' : 'visibility'}}</span>
             </div>
           </div>
           <button class="bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300">Login</button>
@@ -91,85 +46,55 @@
             <hr class="flex-grow border-t border-gray-400 mx-2">
             <span class="px-2 text-gray-600">or</span>
             <hr class="flex-grow border-t border-gray-400 mx-2">
-        </div>
-<div class="w-full flex justify-center items-center">
-    <p class="text-sm text-gray-500">You are not registerd ? <span class="text-blue-600 cursor-pointer" (click)="toggleRegister()">Register</span></p>
-</div>
+          </div>
+          <div class="w-full flex justify-center items-center">
+            <p class="text-sm text-gray-500">You are not registered? <span class="text-blue-600 cursor-pointer" (click)="toggleRegister()">Register</span></p>
+          </div>
         </form>
 
-
-          <!-- Register form -->
-        <form action="" *ngIf="!isLoginVisible" class="flex flex-col gap-10">
-            <div
-              class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2"
-            >
-              <div
-                class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center"
-              >
-                <span class="material-symbols-outlined"> mail </span>
-              </div>
-              <input
-                type="text"
-                class="h-full w-full bg-transparent"
-                placeholder="youremail@gmail.com"
-              />
+        <!-- Register form -->
+        <form *ngIf="!isLoginVisible" (ngSubmit)="onRegister($event)" class="flex flex-col gap-10">
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">person</span>
             </div>
-            <div
-              class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2"
-            >
-              <div
-                class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center"
-              >
-       
-                  <span class="material-symbols-outlined" > lock </span>
-       
-              </div>
-              <input
-                type="{{isPasswordVisible?'text':'password'}}"
-                class="h-full w-full bg-transparent"
-                placeholder="YourPassword@123"
-              />
-              <div
-                class="w-10 h-full rounded flex justify-center cursor-pointer items-center"
-                (click)="togglePasswordVisibility()"
-                >
-                <span class="material-symbols-outlined">{{isPasswordVisible? 'visibility_off' :  'visibility'}}</span>
-                
-              </div>
+            <input type="text" class="h-full w-full bg-transparent" placeholder="kartik" name="name" [(ngModel)]="signUpObj.name" />
+          </div>
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">mail</span>
             </div>
-            <div
-            class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2"
-          >
-            <div
-              class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center"
-            >
-     
-                <span class="material-symbols-outlined" > lock </span>
-     
+            <input type="email" class="h-full w-full bg-transparent" placeholder="youremail@gmail.com" name="email" [(ngModel)]="signUpObj.email" />
+          </div>
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">lock</span>
             </div>
-            <input
-              type="{{isConfirmPasswordVisible?'text':'password'}}"
-              class="h-full w-full bg-transparent"
-              placeholder="Confirm Your Password"
-            />
-            <div
-              class="w-10 h-full rounded flex justify-center cursor-pointer items-center"
-              (click)="toggleConfirmPasswordVisibility()"
-              >
-              <span class="material-symbols-outlined">{{isConfirmPasswordVisible? 'visibility_off' :  'visibility'}}</span>
-              
+            <input type="{{isPasswordVisible ? 'text' : 'password'}}" class="h-full w-full bg-transparent" placeholder="YourPassword@123" name="password" [(ngModel)]="signUpObj.password" />
+            <div class="w-10 h-full rounded flex justify-center cursor-pointer items-center" (click)="togglePasswordVisibility()">
+              <span class="material-symbols-outlined">{{isPasswordVisible ? 'visibility_off' : 'visibility'}}</span>
             </div>
           </div>
-            <button class="bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300">Register</button>
-            <div class="flex items-center justify-center w-full">
-              <hr class="flex-grow border-t border-gray-400 mx-2">
-              <span class="px-2 text-gray-600">or</span>
-              <hr class="flex-grow border-t border-gray-400 mx-2">
+          <div class="flex items-center justify-between h-10 bg-gray-100 border rounded-md overflow-hidden w-[100%] p-1 gap-2">
+            <div class="w-10 max-w-10 h-full bg-white text-blue-600 border rounded flex justify-center items-center">
+              <span class="material-symbols-outlined">lock</span>
+            </div>
+            <input type="{{isConfirmPasswordVisible ? 'text' : 'password'}}" class="h-full w-full bg-transparent" placeholder="Confirm YourPassword@123" name="confirmPassword" [(ngModel)]="confirmPassword" />
+            <div class="w-10 h-full rounded flex justify-center cursor-pointer items-center" (click)="toggleConfirmPasswordVisibility()">
+              <span class="material-symbols-outlined">{{isConfirmPasswordVisible ? 'visibility_off' : 'visibility'}}</span>
+            </div>
           </div>
-  <div class="w-full flex justify-center items-center">
-      <p class="text-sm text-gray-500">You are registerd ? <span class="text-blue-600 cursor-pointer" (click)="toggleRegister()">Login</span></p>
-  </div>
-          </form>
+          <div *ngIf="passwordMismatch" class="text-red-600 text-sm">Passwords do not match</div>
+          <button type="submit" class="bg-blue-500 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300">Register</button>
+          <div class="flex items-center justify-center w-full">
+            <hr class="flex-grow border-t border-gray-400 mx-2">
+            <span class="px-2 text-gray-600">or</span>
+            <hr class="flex-grow border-t border-gray-400 mx-2">
+          </div>
+          <div class="w-full flex justify-center items-center">
+            <p class="text-sm text-gray-500">Already registered? <span class="text-blue-600 cursor-pointer" (click)="toggleRegister()">Login</span></p>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -9,49 +9,41 @@
             <div class="bg-white p-4 h-[15rem] rounded-lg shadow-md flex flex-col justify-end relative">
                 <div>
                     <div class="absolute left-10 top-10 border p-2 flex justify-center rounded-lg text-blue-500 cursor-pointer">
-                        <span class="material-symbols-outlined">
-                            account_balance_wallet
-                            </span>
+                        <span class="material-symbols-outlined">account_balance_wallet</span>
                     </div>
-                   
-                   </div>
+                </div>
                 <h2 class="text-lg font-bold mb-2">Total Balance</h2>
-                <p class="text-2xl font-semibold">$5,000</p>
+                <p class="text-2xl font-semibold">${{ totalBalance }}</p>
             </div>
             
             <!-- Card 2: Income -->
             <div class="bg-white p-4 h-[15rem] rounded-lg shadow-md flex flex-col justify-end relative">
                <div>
                 <div class="absolute left-10 top-10 border p-2 flex justify-center rounded-lg text-green-500 cursor-pointer">
-                    <span class="material-symbols-outlined">
-                        add_card
-                        </span>
+                    <span class="material-symbols-outlined">add_card</span>
                 </div>
                 <div class="absolute right-10 top-10 border p-2 flex justify-center rounded-lg text-green-500 cursor-pointer hover:text-white hover:bg-green-500">
-                    <span class="material-symbols-outlined ">add</span>
+                    <span class="material-symbols-outlined">add</span>
                 </div>
                </div>
                 <div>
                     <h2 class="text-lg font-bold mb-2">Income</h2>
-                    <p class="text-2xl font-semibold">$2,000</p>
+                    <p class="text-2xl font-semibold">${{ totalIncome }}</p>
                 </div>
-       
             </div>
             
             <!-- Card 3: Spendings -->
-            <div class="bg-white p-4 h-[15rem] rounded-lg shadow-md flex flex-col justify-end relative" >
+            <div class="bg-white p-4 h-[15rem] rounded-lg shadow-md flex flex-col justify-end relative">
                 <div>
                     <div class="absolute left-10 top-10 border p-2 flex justify-center rounded-lg text-red-500 cursor-pointer">
-                        <span class="material-symbols-outlined">
-                            credit_card
-                            </span>
+                        <span class="material-symbols-outlined">credit_card</span>
                     </div>
                     <div class="absolute right-10 top-10 border p-2 flex justify-center rounded-lg text-red-500 cursor-pointer hover:text-white hover:bg-red-500">
-                        <span class="material-symbols-outlined ">add</span>
+                        <span class="material-symbols-outlined">add</span>
                     </div>
                    </div>
                 <h2 class="text-lg font-bold mb-2">Spendings</h2>
-                <p class="text-2xl font-semibold">$1,200</p>
+                <p class="text-2xl font-semibold">${{ totalSpendings }}</p>
             </div>
         </div>
         
@@ -63,7 +55,7 @@
             </div>
             
             <!-- Pie Chart Section -->
-            <div class="bg-white p-4 rounded-lg  shadow-md mb-4">
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <h2 class="text-lg font-bold mb-4">Expense Breakdown</h2>
                 <canvas id="pieChart"></canvas>
             </div>
@@ -75,72 +67,20 @@
             
             <!-- Container for transactions -->
             <div class="space-y-4">
-                <!-- Transaction Item: Credit -->
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
+                <div *ngFor="let transaction of transactionHistory" class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
                     <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/31/2024</span>
-                        <span class="text-sm text-gray-500">Groceries</span>
+                        <span class="text-sm font-medium text-gray-700">{{ transaction.date | date: 'MM/dd/yyyy' }}</span>
+                        <span class="text-sm text-gray-500">{{ transaction.description }}</span>
                     </div>
                     <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-green-600">+$50.00</span>
-                        <span class="text-xs text-green-600">Credit</span>
+                        <span class="text-sm font-medium" [ngClass]="{'text-green-600': transaction.type === 'income', 'text-red-600': transaction.type === 'expense'}">
+                            {{ transaction.type === 'income' ? '+' : '-' }}${{ transaction.amount }}
+                        </span>
+                        <span class="text-xs" [ngClass]="{'text-green-600': transaction.type === 'income', 'text-red-600': transaction.type === 'expense'}">
+                            {{ transaction.type | titlecase }}
+                        </span>
                     </div>
                 </div>
-                
-                <!-- Transaction Item: Debit -->
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/30/2024</span>
-                        <span class="text-sm text-gray-500">Rent</span>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-red-600">-$800.00</span>
-                        <span class="text-xs text-red-600">Debit</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/30/2024</span>
-                        <span class="text-sm text-gray-500">Rent</span>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-red-600">-$800.00</span>
-                        <span class="text-xs text-red-600">Debit</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/30/2024</span>
-                        <span class="text-sm text-gray-500">Rent</span>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-red-600">-$800.00</span>
-                        <span class="text-xs text-red-600">Debit</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/30/2024</span>
-                        <span class="text-sm text-gray-500">Rent</span>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-red-600">-$800.00</span>
-                        <span class="text-xs text-red-600">Debit</span>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg shadow-sm">
-                    <div class="flex flex-col">
-                        <span class="text-sm font-medium text-gray-700">07/30/2024</span>
-                        <span class="text-sm text-gray-500">Rent</span>
-                    </div>
-                    <div class="flex flex-col items-end">
-                        <span class="text-sm font-medium text-red-600">-$800.00</span>
-                        <span class="text-xs text-red-600">Debit</span>
-                    </div>
-                </div>
-
-                <!-- Repeat transaction items as needed -->
-                
             </div>
         </div>
     </div>
