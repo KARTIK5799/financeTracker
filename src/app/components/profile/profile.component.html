@@ -1,70 +1,118 @@
 <div class="bg-gray-50 w-full h-screen overflow-y-scroll">
     <div class="container mx-auto p-4">
-        <h2 class="text-lg font-extrabold">Profile Details</h2>
-        <p class="text-sm text-gray-500 mb-5">Manage Accounts as per Need</p>
-      
-        <!-- Profile Header -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex items-center">
-            <div class="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center text-white text-4xl font-bold mr-4">
-                {{ user.name ? user.name[0] : 'U' }}
-            </div>
-            <div>
-                <h3 class="text-2xl font-bold mb-1">{{ user.name || 'User Name' }}</h3>
-                <p class="text-sm text-gray-500">Finance Tracker User</p>
-            </div>
+      <h2 class="text-lg font-extrabold">Profile Details</h2>
+      <p class="text-sm text-gray-500 mb-5">Manage Accounts as per Need</p>
+    
+      <!-- Profile Header -->
+      <div class="bg-white p-4 rounded-lg shadow-md mb-6 flex items-center">
+        <div class="w-24 h-24 rounded-full bg-gray-300 flex items-center justify-center text-white text-4xl font-bold mr-4">
+          {{ user.name ? user.name[0] : 'U' }}
         </div>
-
-        <!-- Profile Details -->
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <!-- Name -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
-                <p
-                    id="name"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
-                >
-                    {{ user.name || 'Not Provided' }}
-                </p>
-            </div>
-
-            <!-- Email -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
-                <p
-                    id="email"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
-                >
-                    {{ user.email || 'Not Provided' }}
-                </p>
-            </div>
-
-            <!-- Mobile Number -->
-            <!-- Make sure to add 'mobileNumber' in local storage if you want to display it -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="mobile">Mobile Number</label>
-                <p
-                    id="mobile"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
-                >
-                    {{ user.mobileNumber || 'Not Provided' }}
-                </p>
-            </div>
-
-            <!-- Address -->
-            <!-- Make sure to add 'address' in local storage if you want to display it -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1" for="address">Address</label>
-                <p
-                    id="address"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
-                >
-                    {{ user.address || 'Not Provided' }}
-                </p>
-            </div>
-
-         
-
-           
+        <div>
+          <h3 class="text-2xl font-bold mb-1">{{ user.name || 'User Name' }}</h3>
+          <p class="text-sm text-gray-500">Finance Tracker User</p>
         </div>
+      </div>
+  
+      <!-- Profile Details -->
+      <div class="bg-white p-4 rounded-lg shadow-md">
+        <!-- Name -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="name">Name</label>
+          <input
+            id="name"
+            *ngIf="isEditing"
+            [(ngModel)]="user.name"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm"
+          />
+          <p
+            *ngIf="!isEditing"
+            id="name"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          >
+            {{ user.name || 'Not Provided' }}
+          </p>
+        </div>
+  
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="email">Email</label>
+          <input
+            id="email"
+            *ngIf="isEditing"
+            [(ngModel)]="user.email"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm"
+          />
+          <p
+            *ngIf="!isEditing"
+            id="email"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          >
+            {{ user.email || 'Not Provided' }}
+          </p>
+        </div>
+  
+        <!-- Mobile Number -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="mobile">Mobile Number</label>
+          <input
+            id="mobile"
+            *ngIf="isEditing"
+            [(ngModel)]="user.mobileNumber"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm"
+          />
+          <p
+            *ngIf="!isEditing"
+            id="mobile"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          >
+            {{ user.mobileNumber || 'Not Provided' }}
+          </p>
+        </div>
+  
+        <!-- Address -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1" for="address">Address</label>
+          <input
+            id="address"
+            *ngIf="isEditing"
+            [(ngModel)]="user.address"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm"
+          />
+          <p
+            *ngIf="!isEditing"
+            id="address"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-gray-100"
+          >
+            {{ user.address || 'Not Provided' }}
+          </p>
+        </div>
+  
+        <!-- Edit, Save, Cancel Buttons -->
+        <div class="flex space-x-4">
+          <button
+            *ngIf="!isEditing"
+            (click)="enableEditing()"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            Edit
+          </button>
+          <button
+            *ngIf="isEditing"
+            (click)="saveChanges()"
+            class="px-4 py-2 bg-green-500 text-white rounded-lg"
+          >
+            Save
+          </button>
+          <button
+            *ngIf="isEditing"
+            (click)="cancelEditing()"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

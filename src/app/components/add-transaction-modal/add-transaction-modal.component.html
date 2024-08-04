@@ -1,0 +1,31 @@
+<!-- add-transaction-modal.component.html -->
+<div class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4">Add Transaction</h2>
+    <form #transactionForm="ngForm" (ngSubmit)="onSubmit(transactionForm)">
+      <div class="mb-4">
+        <label for="type" class="block text-gray-700">Type:</label>
+        <select id="type" name="type" [(ngModel)]="transaction.type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="amount" class="block text-gray-700">Amount:</label>
+        <input id="amount" name="amount" type="number" [(ngModel)]="transaction.amount" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700">Description:</label>
+        <input id="description" name="description" type="text" [(ngModel)]="transaction.description" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="mb-4">
+        <label for="date" class="block text-gray-700">Date:</label>
+        <input id="date" name="date" type="date" [(ngModel)]="transaction.date" class="mt-1 block w-full p-2 border border-gray-300 rounded-md" required>
+      </div>
+      <div class="flex justify-end">
+        <button type="button" (click)="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded-md mr-2">Cancel</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add</button>
+      </div>
+    </form>
+  </div>
+</div>

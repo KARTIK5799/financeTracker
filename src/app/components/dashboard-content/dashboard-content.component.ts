@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { SignUpModel } from '../loginsignup/loginsignup.component';
 import { CommonModule } from '@angular/common';
+import { AddTransactionModalComponent } from '../add-transaction-modal/add-transaction-modal.component';
 
 @Component({
   selector: 'app-dashboard-content',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AddTransactionModalComponent],
   templateUrl: './dashboard-content.component.html',
-  styleUrls: ['./dashboard-content.component.css']
+  styleUrls: ['./dashboard-content.component.css'],
 })
 export class DashboardContentComponent implements OnInit {
-  
   storedData: SignUpModel[] = [];
   totalBalance: number = 0;
   totalIncome: number = 0;
   totalSpendings: number = 0;
   transactionHistory: any[] = [];
+  showModal: boolean = false;
 
   ngOnInit() {
-    const data = localStorage.getItem('angular17users');
+    this.loadStoredData();
+  }
 
+  loadStoredData() {
+    const data = localStorage.getItem('angular17users');
     if (data) {
       try {
         this.storedData = JSON.parse(data);
@@ -37,8 +41,8 @@ export class DashboardContentComponent implements OnInit {
     let income = 0;
     let spendings = 0;
 
-    this.storedData.forEach(user => {
-      user.transactions.forEach(transaction => {
+    this.storedData.forEach((user) => {
+      user.transactions.forEach((transaction) => {
         if (transaction.type === 'income') {
           income += transaction.amount;
         } else if (transaction.type === 'expense') {
@@ -49,16 +53,28 @@ export class DashboardContentComponent implements OnInit {
 
     this.totalIncome = income;
     this.totalSpendings = spendings;
-    this.totalBalance = income - spendings; 
+    this.totalBalance = income - spendings;
   }
 
   prepareTransactionHistory() {
-    this.transactionHistory = this.storedData.flatMap(user =>
-      user.transactions
-    ).map(transaction => ({
-      ...transaction,
-      date: new Date(transaction.date)
-    }))
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+    this.transactionHistory = this.storedData
+      .flatMap((user) => user.transactions)
+      .map((transaction) => ({
+        ...transaction,
+        date: new Date(transaction.date),
+      }))
+      .sort((a, b) => b.date.getTime() - a.date.getTime());
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  onTransactionAdded() {
+    this.loadStoredData();
   }
 }
