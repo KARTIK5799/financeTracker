@@ -84,14 +84,7 @@ export class SignUpModel {
   address: string = '';      
 
   transactions: TransactionModel[] = [
-    new TransactionModel('1', 'income', 2000, 'Salary', new Date('2024-08-01')),
-    new TransactionModel('2', 'expense', 800, 'Rent', new Date('2024-08-02')),
-    new TransactionModel('3', 'income', 1500, 'Freelance', new Date('2024-08-05')),
-    new TransactionModel('4', 'expense', 300, 'Groceries', new Date('2024-08-10')),
-    new TransactionModel('5', 'expense', 150, 'Utilities', new Date('2024-08-12')),
-    new TransactionModel('6', 'income', 500, 'Bonus', new Date('2024-08-15')),
-    new TransactionModel('7', 'expense', 100, 'Transportation', new Date('2024-08-18')),
-    new TransactionModel('8', 'income', 200, 'Interest', new Date('2024-08-20')),
+   
   ];
 }
 
