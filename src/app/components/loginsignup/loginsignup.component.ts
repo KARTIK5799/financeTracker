@@ -105,6 +105,7 @@ export class TransactionModel {
     public type: 'income' | 'expense' = 'income',
     public amount: number = 0,
     public description: string = '',
-    public date: Date = new Date()
+    public date: Date = new Date(),
+    public category: string = ''
   ) {}
 }

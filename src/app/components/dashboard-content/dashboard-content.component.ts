@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SignUpModel } from '../loginsignup/loginsignup.component';
 import { CommonModule } from '@angular/common';
+import { SignUpModel, TransactionModel } from '../loginsignup/loginsignup.component';
 import { AddTransactionModalComponent } from '../add-transaction-modal/add-transaction-modal.component';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard-content',
@@ -18,8 +19,13 @@ export class DashboardContentComponent implements OnInit {
   transactionHistory: any[] = [];
   showModal: boolean = false;
 
+  incomeExpenseChartData: any[] = [];
+  expenseBreakdownChartData: any[] = [];
+
   ngOnInit() {
+    Chart.register(...registerables);
     this.loadStoredData();
+    this.prepareCharts();
   }
 
   loadStoredData() {
@@ -29,6 +35,7 @@ export class DashboardContentComponent implements OnInit {
         this.storedData = JSON.parse(data);
         this.calculateTotals();
         this.prepareTransactionHistory();
+        this.prepareCharts();
       } catch (e) {
         console.error('Error parsing local storage data', e);
       }
@@ -64,6 +71,45 @@ export class DashboardContentComponent implements OnInit {
         date: new Date(transaction.date),
       }))
       .sort((a, b) => b.date.getTime() - a.date.getTime());
+  }
+
+  prepareCharts() {
+   
+    const ctxIncomeExpense = (document.getElementById('spendingsChart') as HTMLCanvasElement).getContext('2d');
+    if (ctxIncomeExpense) {
+      new Chart(ctxIncomeExpense, {
+        type: 'bar',
+        data: {
+          labels: ['Income', 'Expenses'],
+          datasets: [{
+            label: 'Total',
+            data: [this.totalIncome, this.totalSpendings],
+            backgroundColor: ['#4caf50', '#f44336']
+          }]
+        }
+      });
+    }
+
+
+    const expenses = this.storedData.flatMap((user) => user.transactions.filter(t => t.type === 'expense'));
+    const expenseCategories = expenses.reduce((acc, transaction) => {
+      acc[transaction.category] = (acc[transaction.category] || 0) + transaction.amount;
+      return acc;
+    }, {} as { [key: string]: number });
+
+    const ctxExpenseBreakdown = (document.getElementById('pieChart') as HTMLCanvasElement).getContext('2d');
+    if (ctxExpenseBreakdown) {
+      new Chart(ctxExpenseBreakdown, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(expenseCategories),
+          datasets: [{
+            data: Object.values(expenseCategories),
+            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
+          }]
+        }
+      });
+    }
   }
 
   openModal() {
